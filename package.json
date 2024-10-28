@@ -1,0 +1,38 @@
+{
+  "name": "social-media-backend",
+  "version": "1.0.0",
+  "description": "A social media platform backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelaworetan/social-media-backend.git"
+  },
+  "keywords": [
+    "social-media",
+    "backend-platform"
+  ],
+  "author": "Aworetan Michael",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelaworetan/social-media-backend/issues"
+  },
+  "homepage": "https://github.com/michaelaworetan/social-media-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.7",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+  }
+}
