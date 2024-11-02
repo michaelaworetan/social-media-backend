@@ -1,7 +1,8 @@
-import { Schema, model, Document } from "mongoose";     //import statements
+import { Schema, model, Document, Types } from "mongoose";  //import statements
 
 //Define an interface for the User model to enforce structure
-interface iUser extends Document {
+export interface iUser extends Document {
+    _id: Types.ObjectId     // Define _id as required and of type ObjectId
     name: string     //user.s name
     email: string     //user's email
     password: string  //user's password

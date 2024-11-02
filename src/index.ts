@@ -2,6 +2,7 @@ import express, {Request, Response}  from "express";     //import express framew
 import dotenv from "dotenv";     //import dotenv to manage enviroment variable
 import { connectDB } from "./config/db";
 import { config } from "./config/config";
+import userRoutes from "./routes/userRoutes";
 
 //Load environment variables from the .env file
 dotenv.config()
@@ -16,6 +17,9 @@ app.use(express.json())
 app.get('/api', (req: Request, res: Response) => {
     res.send('Hello, Social Media Platfrom'); 
 })
+
+//Use user routes
+app.use('/api/users', userRoutes);
 
 //connect to MongoDB
 connectDB()
