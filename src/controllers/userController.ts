@@ -2,6 +2,7 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import { User, iUser } from '../models/user'
+import { generateToken } from '../utils/token';
 
 //Signup function
 export const signUp = async (req: Request, res: Response): Promise<void> => {
@@ -58,8 +59,11 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
+        // Generate JWT token
+        const token = generateToken(user._id.toString());       // Convert _id to string if it's an ObjectId and type assertion to tell typescript _id existing
+
         //if authentication is successful, respond with user details
-        res.status(200).json({ message: 'Sign-in successful', user: { name: user.name, emai: user.email } });
+        res.status(200).json({ message: 'Sign-in successful', user: { name: user.name, emai: user.email }, token}); 
     } 
     catch (error) {
         console.error(error);
