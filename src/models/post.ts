@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose'; // Import necessary components from Mongoose
 
 // Define an interface for the Post model to enforce structure
-interface iPost extends Document {
+export interface iPost extends Document {
   title: string;     // Title of the post
   content: string;   // Content of the post
   userId: Types.ObjectId;    // ID of the user who created the post, with specific ObjectId type

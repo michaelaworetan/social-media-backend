@@ -8,11 +8,11 @@ export const validateSignup = [
     body('name')
         .isString().withMessage('Name must be a string')
         .notEmpty().withMessage('Name is required'),
-    //  Validate that 'email' is not empty abd valid email string
+    //  Validate that 'email' is not empty and is a valid email format
     body('email')
         .isString().withMessage('Email must be a string')
         .notEmpty().withMessage('Email is required')
-        .isEmail().withMessage('Please enter a valid email'),
+        .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/).withMessage('Please enter a valid email address'),
     //  Validate that 'password' is a non-empty string and at least 8 characters
     body('password')
         .isString().withMessage('Password must be a string')

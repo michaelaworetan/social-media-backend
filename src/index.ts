@@ -3,6 +3,7 @@ import dotenv from "dotenv";     //import dotenv to manage enviroment variable
 import { connectDB } from "./config/db";
 import { config } from "./config/config";
 import userRoutes from "./routes/userRoutes";
+import postRoutes from "./routes/postRoutes";
 
 //Load environment variables from the .env file
 dotenv.config()
@@ -18,8 +19,9 @@ app.get('/api', (req: Request, res: Response) => {
     res.send('Hello, Social Media Platfrom'); 
 })
 
-//Use user routes
+//Use routes
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 //connect to MongoDB
 connectDB()

@@ -1,7 +1,7 @@
 /**user routes with validation and controllers* */
 import { Router } from "express";
 import { deleteUser, getAllUsers, getUserByEmail, getUserById, signIn, signUp, updateUser } from "../controllers/userController";
-import { validateSignIn, validateSignup } from "../middlewares/validationMiddleware";
+import { validateSignIn, validateSignup } from "../middlewares/validateUser";
 
 const router = Router();   //new Router
 
