@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { createPost, deletePost, getPostById, getPosts, updatePost } from "../controllers/postController";
 import { validateCreatePost, validatePost } from "../middlewares/validateCreatePost";
+import { authenticateToken } from "../middlewares/authMiddleware";
 
 
 const router = Router()       //new router
 
 // Route for creating a new post
-router.post('/', validateCreatePost, createPost);
+router.post('/', validateCreatePost, authenticateToken, createPost);
 
 // Route for retrieving all posts
 router.get('/', getPosts);

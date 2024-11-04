@@ -3,19 +3,30 @@ import { Post, iPost } from '../models/post';
 
 // create Post function
 export const createPost = async (req: Request, res: Response): Promise<void> => {
-    const { title, content, userId } = req.body
+    const { title, content } = req.body;
 
     try {
-        //  create a new post instance
+        const userId = req.user?._id; // `userId` is already an `ObjectId` type from `authenticateToken`
+
+        console.log('User ID in createPost:', userId);
+
+        if (!userId) {
+            res.status(401).json({ message: "User not authenticated" });
+            return;
+        }
+
+        // Create a new post instance with userId
         const newPost: iPost = new Post({
             title,
             content,
-            userId
+            userId, // userId now matches expected ObjectId format
         });
-        //  save the post to the new database
-        await newPost.save();
-        //  Responsd with the created post and a success message
-        res.status(201).json({ message: 'Post created successfully', post: newPost})
+
+        // Save the post to the database
+        const savedPost = await newPost.save();
+
+        // Respond with the created post and a success message
+        res.status(201).json({ message: 'Post created successfully', post: savedPost });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

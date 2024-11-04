@@ -11,7 +11,7 @@ export const validateCreatePost = [
         .notEmpty().withMessage('Post content is required'),
     body('userId')
         .isString().withMessage('User ID must be a string')
-        .notEmpty().withMessage('User ID is required'),
+        .optional(),
 
     // Middleware function to check validation results
     (req: Request, res: Response, next: NextFunction): void => {
