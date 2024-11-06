@@ -6,8 +6,9 @@ dotenv.config()
 
 //export configuration settings
 export const config = {
-    mongoUri: process.env.MONGO_URI ?? 'mongodb://localhost:27017/social_media', //mongo uri
+    mongoUri: process.env.MONGO_URI!, //mongo uri
     port: process.env.PORT ?? 3000    //server port
 }
+
 
 

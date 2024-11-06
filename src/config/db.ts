@@ -2,6 +2,8 @@
 import mongoose from "mongoose";   //import mongoose for mongodb interactions
 import { config } from "./config"; //import configuration settings
 
+console.log(config.mongoUri);
+
 //function to connect to mongodb
 export const connectDB = async () => {
     try {
