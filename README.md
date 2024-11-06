@@ -140,14 +140,15 @@ social-media-backend/
   - **Endpoint**: GET /api/users/profile
   - **Description**: Retrieves the authenticated user’s profile.
   - **Headers**:
-    - Authorization: Bearer <token>
-  Post Management
+    - Authorization: ```< your token>```
+  ---
+  ### **Post Management**
 
   **Create a Post**
   - **Endpoint**: POST /api/posts/
   - **Description**: Creates a new post for the authenticated user.
   - **Headers**:
-    - Authorization: Bearer <token>
+    - Authorization:  ```<your token>```
   - **Request Body**:
   ```json
   {
