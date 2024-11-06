@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 // Middleware function to authenticate JWT token
 export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
     // Get the token from the 'Authorization' header, typically in the format "Bearer <token>"
-    const token = req.headers['authorization']?.split(' ')[1]; 
+    const token = req.header("Authorization")?.replace("Bearer", ""); 
 
     // Check if token exists; if not, respond with 401 (Unauthorized)
     if (!token) {
