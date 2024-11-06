@@ -141,7 +141,8 @@ social-media-backend/
   - **Description**: Retrieves the authenticated user’s profile.
   - **Headers**:
     - Authorization: ```< your token>```
-  Post Management
+  ---
+  ### **Post Management**
 
   **Create a Post**
   - **Endpoint**: POST /api/posts/
