@@ -7,7 +7,7 @@ dotenv.config()
 //export configuration settings
 export const config = {
     mongoUri: process.env.MONGO_URI!, //mongo uri
-    port: process.env.PORT ?? 3000    //server port
+    port: process.env.PORT!   //server port
 }
 
 
