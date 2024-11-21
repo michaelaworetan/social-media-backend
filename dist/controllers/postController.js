@@ -17,10 +17,8 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { title, content } = req.body;
     try {
         const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id; // `userId` is already an `ObjectId` type from `authenticateToken`
-        console.log('User ID in createPost:', userId);
         if (!userId) {
-            res.status(401).json({ message: "User not authenticated" });
-            return;
+            return res.status(401).json({ message: "User not authenticated" });
         }
         // Create a new post instance with userId
         const newPost = new post_1.Post({
@@ -31,11 +29,13 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         // Save the post to the database
         const savedPost = yield newPost.save();
         // Respond with the created post and a success message
-        res.status(201).json({ message: 'Post created successfully', post: savedPost });
+        return res
+            .status(201)
+            .json({ message: "Post created successfully", post: savedPost });
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: "Server error" });
     }
 });
 exports.createPost = createPost;
@@ -43,11 +43,11 @@ exports.createPost = createPost;
 const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield post_1.Post.find();
-        res.status(200).json(posts);
+        return res.status(200).json(posts);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: "Server error" });
     }
 });
 exports.getPosts = getPosts;
@@ -57,14 +57,13 @@ const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const post = yield post_1.Post.findById(id);
         if (!post) {
-            res.status(404).json({ message: 'Post is not found' });
-            return;
+            return res.status(404).json({ message: "Post is not found" });
         }
-        res.status(200).json(post);
+        return res.status(200).json(post);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: "Server error" });
     }
 });
 exports.getPostById = getPostById;
@@ -75,14 +74,15 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const updatedPost = yield post_1.Post.findByIdAndUpdate(id, { title, content }, { new: true });
         if (!updatedPost) {
-            res.status(404).json({ message: 'Post not found' });
-            return;
+            return res.status(404).json({ message: "Post not found" });
         }
-        res.status(200).json({ message: 'Post updated sucessfully', post: updatedPost });
+        return res
+            .status(200)
+            .json({ message: "Post updated sucessfully", post: updatedPost });
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: "Server error" });
     }
 });
 exports.updatePost = updatePost;
@@ -92,14 +92,13 @@ const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const deletedPost = yield post_1.Post.findByIdAndDelete(id);
         if (!deletedPost) {
-            res.status(404).json({ message: 'Post not found' });
-            return;
+            return res.status(404).json({ message: "Post not found" });
         }
-        res.status(200).json({ message: 'Post deleted successfully' });
+        return res.status(200).json({ message: "Post deleted successfully" });
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: "Server error" });
     }
 });
 exports.deletePost = deletePost;

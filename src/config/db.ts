@@ -1,16 +1,16 @@
-//connection settings 
-import mongoose from "mongoose";   //import mongoose for mongodb interactions
-import { config } from "./config"; //import configuration settings
+import mongoose from "mongoose"; //import mongoose for mongodb interactions
+import dotenv from "dotenv";
+
+dotenv.config();
 
 //function to connect to mongodb
 export const connectDB = async () => {
-    try {
-        //connect to mongoDB using the URI from config
-        await mongoose.connect(config.mongoUri);
-        console.log('MongoDB connected'); // Log success message
-        
-    } catch (err) {
-        console.error(`MongoDB connection error:`, err); // logs any connection erorrs
-        process.exit(1);  // Exit the process if connection fails
-    }
+  try {
+    //connect to mongoDB using the URI 
+    await mongoose.connect(process.env.MONGO_URI!);
+    console.log("MongoDB connected"); 
+  } catch (err) {
+    console.error(`MongoDB connection error:`, err); 
+    process.exit(1); // Exit the process if connection fails
+  }
 };
