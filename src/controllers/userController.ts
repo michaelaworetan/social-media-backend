@@ -1,27 +1,25 @@
 /**User signup and signin controllers */
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import { User, iUser } from '../models/user'
+import { User} from '../models/user'
 import { generateToken } from '../utils/token';
 
 //Signup function
-export const signUp = async (req: Request, res: Response): Promise<void> => {
-    const { name, email, password} = req.body        //Destructure the user data from request body 
-
+export const signUp = async (req: Request, res: Response): Promise<any> => {
     try {
+        const { name, email, password} = req.body        
        //Check if a user already exists with the provide email
        const existingUser = await User.findOne({ email });
        if(existingUser) {
         //if the User already exist, return status code
-        res.status(400).json({ message: 'User already exists' });
-        return; //Exit
+        return res.status(400).json({ message: 'User already exists' });
        }
 
        //Hashing the password before saving the user
        const hashedPassword = await bcrypt.hash(password, 10);
 
        //create a new user instance from the provided data
-       const newUser: iUser = new User({
+       const newUser = new User({
         name,
         email,
         password: hashedPassword    //Save the hashed password
@@ -30,21 +28,17 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
        //Save the new User to the database
        await newUser.save();
 
-       //  Respond the generated token with status code
-       res.status(201).json({ newUser });
+       res.status(201).json(newUser);
     } catch(error) {   
-        // Handle errors that occur during the process
-        console.error(error);  //log the error for degging
-        res.status(500).json({ message: 'Server error' });   // respond status for server errors 
+        console.error(error);  //log the error for debugging
+        res.status(500).json({ message: 'Server error' });  
     }
-
 };
 
 //signin function
-export const signIn = async (req: Request, res: Response): Promise<void> => {
-    const { email, password } = req.body   //Extract login data from the request
-    
+export const signIn = async (req: Request, res: Response): Promise<any> => {
     try {
+        const { email, password } = req.body   //Extract login data from the request
         //  Check if user exist in the database
         const user = await User.findOne({ email });
         if (!user) {
@@ -60,7 +54,7 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Generate JWT token
-        const token = generateToken(user._id.toString());       // Convert _id to string if it's an ObjectId and type assertion to tell typescript _id existing
+        const token = generateToken(user._id.toString());   
 
         //if authentication is successful, respond with user details
         res.status(200).json({ message: 'Sign-in successful', user: { name: user.name, emai: user.email }, token}); 
@@ -72,19 +66,20 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
 };
 
 // GetAll users function
-export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+export const getAllUsers = async (req: Request, res: Response): Promise<any> => {
     try {
         const users = await User.find({}, 'name email');    //Retreive all users, selecting only name and email fields
         res.status(200).json(users);
     } 
     catch (error) {
-        console.error();
-        res.status(500).json({ message: 'Server error'});
+        console.error("Error fetching users: ", error);
+        res.status(500).json({ message: 'Internal Server error'});
     }
 };
 
 //  Get User by email function
-export const getUserByEmail = async (req: Request, res: Response): Promise<void> => {
+export const getUserByEmail = async (req: Request, res: Response): Promise<any> => {
+    // Getting the email as request parameter
     const { email } = req.params;
 
     try {
@@ -95,7 +90,7 @@ export const getUserByEmail = async (req: Request, res: Response): Promise<void>
             return;
         }
 
-        // Return only the relevant fields, like name, email, and timestamps, instead of the whole user object.
+        // Return only the relevant fields (id, name, email) instead of the whole user object.
         res.status(200).json({
             _id: user._id,
             name: user.name,
@@ -107,30 +102,33 @@ export const getUserByEmail = async (req: Request, res: Response): Promise<void>
     }
 };
 
-// Get User By Id function
-export const getUserById = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req. params
 
+// Get User By Id function
+export const getUserById = async (req: Request, res: Response): Promise<any> => {
     try {
-        const user = await User.findById(id, 'name email');
-        if (!user) {
-            res.status(404).json({ message: 'User not found'});
-            return;
-        }
-        res.status(200).json(user);
+       const { id } = req.params
+
+       const user = await User.findById(id, 'name email');
+
+       if (!user) {
+           res.status(404).json({ message: 'User not found'});
+           return;
+       }
+       res.status(200).json({ message: 'User found', user});
     } 
     catch (error) {
-        console.error("Error retrieving user by id:", error);
-        res.status(500).json({ message: "Server error" });
+       console.error(error);
+       res.status(500).json({ message: 'Server error' });
     }
 }
 
+
 // Update User function
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
-    const { name, email } = req.body;
-    
     try {
+        const { id } = req.params;
+        const { name, email } = req.body;
+
         const updateUser = await User.findByIdAndUpdate(id, { name, email }, { new: true, runValidators: true});
         if (!updateUser) {
             res.status(404).json({ message: 'User not found'});
@@ -147,8 +145,9 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 
 // DelEte User function
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
-     const { id } = req.params
      try {
+        const { id } = req.params 
+
         const deletedUser = await User.findByIdAndDelete(id);
         if (!deletedUser) {
             res.status(404).json({ message: 'User not found'});

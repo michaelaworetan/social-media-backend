@@ -15,15 +15,15 @@ router.post('/signin', validateSignIn, signIn);
 router.get('/', getAllUsers);
 
 // Get User By email
-router.get('/user/:email', getUserByEmail)
+router.post('/user/:email', getUserByEmail)
 
 // Route to get a user by ID
-router.get('/user/:id', getUserById);
+router.post('/user/:id', getUserById);
 
 // Route to update a user by Id
 router.put('/user/:id', updateUser)
 
-// Route to update a user by Id
+// Route to delete a user by Id
 router.delete('/user/:id', deleteUser)
 
 

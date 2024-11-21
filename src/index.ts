@@ -27,7 +27,7 @@ app.use('/api/posts', postRoutes);
 connectDB()
 
 //set the port number for the server to listen on 
-const PORT = config.port ?? 3000;
+const PORT = config.port;
 
 //start the express server and listen on the specified port
 app.listen(PORT, () => {

@@ -1,16 +1,16 @@
-import { Schema, model, Document, Types } from 'mongoose'; // Import necessary components from Mongoose
+import { Schema, model } from 'mongoose'; // Import necessary components from Mongoose
 
-// Define an interface for the Post model to enforce structure
-export interface iPost extends Document {
-  title: string;     // Title of the post
-  content: string;   // Content of the post
-  userId: Types.ObjectId;    // ID of the user who created the post, with specific ObjectId type
+// Defining Post interface 
+export interface iPost  {
+  title: string;    
+  content: string;   
+  userId: Schema.Types.ObjectId;    // ID of the user who created the post, with specific ObjectId type
 }
 
 // Create a Mongoose schema for the Post model
 const postSchema = new Schema<iPost>({
-  title: { type: String, required: true }, // Title is a required string
-  content: { type: String, required: true }, // Content is a required string
+  title: { type: String, required: true },
+  content: { type: String, required: true }, 
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // userId references the User model
 }, { timestamps: true }); // Automatically add createdAt and updatedAt timestamps
 

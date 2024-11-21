@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Post, iPost } from '../models/post';
+import { Post} from '../models/post';
 
 // create Post function
 export const createPost = async (req: Request, res: Response): Promise<void> => {
@@ -16,7 +16,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
         }
 
         // Create a new post instance with userId
-        const newPost: iPost = new Post({
+        const newPost = new Post({
             title,
             content,
             userId, // userId now matches expected ObjectId format

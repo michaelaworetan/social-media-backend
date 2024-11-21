@@ -1,14 +1,14 @@
-import { Schema, model, Document, Types } from "mongoose";  //import statements
+import { Schema, model } from "mongoose"; 
 
-//Define an interface for the User model to enforce structure
-export interface iUser extends Document {
-    _id: Types.ObjectId     // Define _id as required and of type ObjectId
-    name: string     //user.s name
-    email: string     //user's email
-    password: string  //user's password
+//Defining an interface for the User model
+interface iUser  {
+    // id: Schema.Types.ObjectId     // Define _id as required and of type ObjectId
+    name: string   
+    email: string   
+    password: string  
 }
 
-// create a Mongoose schwma for the User model based on the interface
+// creating a Mongoose schwma for the User model based on the interface
 const userSchema = new Schema<iUser>({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
