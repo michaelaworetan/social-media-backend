@@ -113,9 +113,9 @@ social-media-backend/
 ---
   ## **API Documentation**
   ### **User Authentication**
-  #### **Register a New User**
-  - Endpoint: POST /api/users/register
-  - Description: Registers a new user.
+  #### **New User Signup**
+  - Endpoint: POST /api/users/signup
+  - Description: New user signup.
   - Request Body:
   
   ``` json  
@@ -125,8 +125,8 @@ social-media-backend/
     "password": "string"
   }
   ```
-  #### **User Login**
-  - Endpoint: POST /api/users/login
+  #### **User Signin**
+  - Endpoint: POST /api/users/signin
   - Description: Authenticates a user and returns a JWT token.
   - Request Body:
   ```json
@@ -136,12 +136,25 @@ social-media-backend/
   }
   ``` 
 
-  #### **Get User Profile**
-  - **Endpoint**: GET /api/users/profile
+  #### **Get All Users**
+  - **Endpoint**: GET api/users/
   - **Description**: Retrieves the authenticated user’s profile.
   - **Headers**:
     - Authorization: ```< your token>```
   ---
+
+  #### **Get Users By Email**
+  - **Endpoint**: POST api/users/user/:email
+  ---
+  
+  #### **Update User by Id**
+  - **Endpoint**: PUT api/users/user/:id
+  ---  
+
+  #### **Delete User by Id**
+  - **Endpoint**: DEL api/users/user/:id
+  ---  
+  
   ### **Post Management**
 
   **Create a Post**
@@ -173,10 +186,8 @@ social-media-backend/
   }
   ``` 
   **Delete a Post**
-  - **Endpoint**: DELETE /api/posts/:id
+  - **Endpoint**: DEL /api/posts/:id
   - **Description**: Deletes a post by ID for the authenticated user.
-  - **Headers**:
-    - **Authorization**: Bearer <token>
 
   --- 
   ## **Testing**
