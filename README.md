@@ -219,7 +219,3 @@ social-media-backend/
   ---
   ## **License**
   This project is licensed under the MIT License.
-   ``` 
-  This version maintains the markdown formatting throughout, using headings, lists, code block
-
-  ```
